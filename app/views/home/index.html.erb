@@ -1,0 +1,19 @@
+<button data-reflex="click->Example#test">Test</button>
+
+<% if @stimulus_reflex %>
+  <h1>Success! Random: <%= (rand * 100).to_i %></h1>
+<% end %>
+
+<% Collection.all.each do |collection| %>
+  <h1><%= collection.name %></h1>
+  
+  <% lists = collection.lists %>
+  <div id="lists">
+    <% collection.user.lists.each_with_index.each do |list, index| %>
+      <label for="collection_listables_attributes_list_id_#{ list.id }">
+        <%= check_box_tag("collection[listables_attributes][list_id][#{ list.id }]", list.id, lists.include?(list), data: { reflex: 'change->Collection#toggle_list', 'reflex-root': "#lists", list: list.to_sgid.to_s, collection: collection.to_sgid.to_s }) %>
+        <%= list.name %>
+      </label>
+    <% end %>
+  </div>
+<% end %>
