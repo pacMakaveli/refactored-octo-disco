@@ -8,10 +8,10 @@
   <h1><%= collection.name %></h1>
   
   <% lists = collection.lists %>
-  <div id="#{ dom_id(collection) }">
+  <div id="<%= dom_id(collection) %>">
     <% collection.user.lists.each_with_index.each do |list, index| %>
-      <label for="collection_listables_attributes_list_id_#{ list.id }">
-        <%= check_box_tag("collection[listables_attributes][list_id][#{ list.id }]", list.id, lists.include?(list), data: { reflex: 'change->Collection#toggle_list', 'reflex-root': "#{ dom_id(collection) }", list: list.to_sgid.to_s, collection: collection.to_sgid.to_s }) %>
+      <label for="collection_<%= collection.id %>_listables_attributes_list_id_<%= list.id %>">
+        <%= check_box_tag("collection[#{ collection.id }][listables_attributes][list_id][#{ list.id }]", list.id, lists.include?(list), data: { reflex: 'change->Collection#toggle_list', 'reflex-root': "##{ dom_id(collection) }", list: list.to_sgid.to_s, collection: collection.to_sgid.to_s }) %>
         <%= list.name %>
       </label>
     <% end %>
